@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block title %}Log-in{% endblock %}
+{% block content %}
+    <h1>Log-in</h1>
+    {% if form.errors %}
+        <p>
+            Your username and password didn't match.
+            Plase try again.
+        </p>
+    {% else %}
+        <p>Plase, use the following form to log-in:</p>
+    {% endif %}
+    <div class="login-form">
+        <form action="{% url 'login' %}" method="post">
+            {{ form.as_p }}
+            {% csrf_token %}
+            <input type="hidden" name="next" value="{{ next }}"/>
+            <P><input type="submit" value="Log-in"></P>
+        </form>
+        <p><a href="{% url 'password_reset' %}">Forgotten your password</a></p>
+        <p> <a href="{% url 'register' %}">Create new account</a></p>
+    </div>
+    <div class="social">
+        <ul>
+            <li class="facebook">
+                <a href="{% url 'social:begin' 'facebook' %}">Sign in with Facebook.</a>
+            </li>
+            <li class="twitter">
+                <a href="{% url 'social:begin' 'twitter' %}">Login with twitter</a>
+            </li>
+            <li class="google">
+                <a href="{% url 'social:begin' 'google-oauth2' %}">Login with google</a>
+            </li>
+        </ul>
+    </div>
+{% endblock %}
